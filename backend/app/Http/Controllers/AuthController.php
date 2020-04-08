@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignupRequest;
+use App\User;
+
 /**
  * Class AuthController
  * @package App\Http\Controllers
@@ -15,7 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
     }
 
     /**
@@ -27,11 +30,23 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Wrong email or password'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+    /**
+     * Signup new user
+     *
+     * @param SignupRequest $signupRequest
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function signup(SignupRequest $signupRequest)
+    {
+        User::create(request()->all());
+        return $this->login();
     }
 
     /**
@@ -69,7 +84,7 @@ class AuthController extends Controller
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return \Illuminate\Http\JsonResponse
      */
