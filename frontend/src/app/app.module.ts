@@ -13,6 +13,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {ClientService} from "./services/client.service";
 import {TokenService} from "./services/token.service";
+import {AuthService} from "./services/auth.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {TokenService} from "./services/token.service";
   ],
   providers: [
     ClientService,
-    TokenService
+    TokenService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

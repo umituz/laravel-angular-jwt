@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientService} from "../../services/client.service";
 import {TokenService} from "../../services/token.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,11 @@ import {TokenService} from "../../services/token.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private Client: ClientService, private Token: TokenService) {
+  constructor(
+    private Client: ClientService,
+    private Token: TokenService,
+    private router: Router,
+    private Auth: AuthService) {
   }
 
   public error = null;
@@ -33,6 +39,8 @@ export class LoginComponent implements OnInit {
    */
   handleResponse(data) {
     this.Token.handle(data.access_token);
+    this.Auth.changeAuthStatus(true);
+    this.router.navigateByUrl('/profile');
   }
 
   /**
