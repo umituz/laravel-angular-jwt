@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {ClientService} from "../../services/client.service";
 
 @Component({
   selector: 'app-signup',
@@ -8,20 +8,25 @@ import {HttpClient} from "@angular/common/http";
 })
 export class SignupComponent implements OnInit {
 
-  public errors = [];
+  public errors = {
+    name: null,
+    email: null,
+    password: null
+  };
 
-  public form = {
+  public
+  form = {
     name: null,
     email: null,
     password: null,
     password_confirmation: null
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private Client: ClientService) {
   }
 
   onSubmit() {
-    return this.http.post('http://localhost:8000/api/signup', this.form).subscribe(
+    this.Client.signup(this.form).subscribe(
       data => console.log(data),
       error => this.handleError(error)
     );
@@ -31,7 +36,9 @@ export class SignupComponent implements OnInit {
     this.errors = error.error.errors;
   }
 
-  ngOnInit(): void {
+  ngOnInit()
+    :
+    void {
   }
 
 }
