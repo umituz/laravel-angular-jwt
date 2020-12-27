@@ -29,4 +29,13 @@ export class ClientService {
     return this.http.post(`${this.baseUrl}/signup`, data);
   }
 
+  /**
+   * Send password reset link
+   *
+   * @param data
+   */
+  sendPasswordResetLink(data){
+    return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data);
+  }
+
 }

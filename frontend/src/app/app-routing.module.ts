@@ -19,7 +19,7 @@ const routes: Routes = [
   // @ts-ignore
   {path: 'request-password-reset', component: RequestResetComponent, canActivate: [BeforeLoginService]},
   // @ts-ignore
-  {path: 'response-password-reset', component: ResponseResetComponent, canActivate: [AfterLoginService]}
+  {path: 'response-password-reset', component: ResponseResetComponent, canActivate: [BeforeLoginService]}
 ];
 
 @NgModule({
